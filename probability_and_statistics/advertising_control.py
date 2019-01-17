@@ -162,9 +162,40 @@ class AdvertisingControl(object):
 
         return table
 
+    def get_data_from_matrix(self):
+        """Check for the content between ranges"""
+
+        content = self.class_border_matrix()
+        data = raw_data()
+        data_elements = len(data)
+        counted_elements = 0
+
+        _table = []
+        import ipdb
+        for _range in content:
+            _min_range = _range[0]
+            _max_range = _range[1]
+
+            # initialize the counter
+            count = 0
+
+            for element in data:
+                if _min_range <= element <= _max_range:
+                    count += 1
+                    counted_elements += 1
+
+            if count == 1:
+                _table.append("{}-{}: 0 elements".format(_min_range, _max_range))
+            else:
+                _table.append("{}-{}: {} elements".format(_min_range, _max_range, count))
+
+        for element in _table:
+            print(element)
+
 
 if __name__ == "__main__":
     obj = AdvertisingControl()
     obj.evaluate_matrix()
     obj.show_data()
+    obj.get_data_from_matrix()
 
